@@ -1,0 +1,36 @@
+docker build -t cust-segmentation .
+
+docker tag cust-segmentation gerrybaird/customer-segmentation:v1 
+
+
+
+#Create a python env
+python3 -m venv env  
+
+docker run -d -p 9099:9099 cust-segmentation
+
+docker exec -it 5c9b23d5dbeb /bin/bashß
+
+ curl -X POST \
+   http://172.17.0.3:9099/segmentation \
+   -H 'Content-Type: application/json' \
+   -d '{"satisfaction": 4, "spend": 1100}'
+
+
+#get ip address of workers
+ibmcloud ks worker ls --cluster mycluster
+
+#get nodeport
+kubectl describe service segment-api-nodeport
+
+#get the ip of the loadbalancer. Public IP is labeled as LoadBalancer Ingress
+kubectl describe service segment-api-loadbalancer
+
+Decision Composeer API Key : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzY29wZXMiOlsiRVhFQ1VUSU9OIl0sInVzZXJJZCI6IjViYTlmOGRiMTJkODU4MDAyOTg1YmIzYiIsImp0aSI6IjVkZjhlNDhlYjEzZWYwMDAxNjQxMzFiYyIsInVzZXJuYW1lIjoiZ2VycnkuYmFpcmRAdWsuaWJtLmNvbSJ9.iXYlKBSGchfXAFUzZ_yeGnT98v9Uq4ia1VY_aLwnGW4
+
+
+
+VE65 CFS
+VR28 LPA
+LY45 XVF
+TR12 BAR

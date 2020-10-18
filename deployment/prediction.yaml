@@ -1,0 +1,48 @@
+---
+swagger: "2.0"
+info:
+  description: Prediction API
+  version: 1.0.0
+  title: Prediction API
+host: 169.50.92.131:9099
+schemes:
+- http
+paths:
+  /prediction:
+    post:
+      operationId: prediction
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        required: false
+        schema:
+          $ref: '#/definitions/PredictionPayload'
+      responses:
+        "200":
+          description: Customer prediction returned
+          schema:
+            $ref: '#/definitions/PredictionResponse'
+        "404":
+          description: Something has gone wrong
+          schema:
+            type: string
+definitions:
+  PredictionPayload:
+    properties:
+      satisfaction:
+        type: integer
+        format: int32
+      vehicleAge:
+        type: integer
+        format: int32
+      value:
+        type: integer
+        format: int32
+  PredictionResponse:
+    properties:
+      prediction:
+        type: integer

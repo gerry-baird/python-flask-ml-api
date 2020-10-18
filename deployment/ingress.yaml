@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: segment-api-ingress
+spec:
+  rules:
+  - host: mycluster-527257-146c6c4a55409bbdb5403b1a18bbffeb-0001.eu-gb.containers.appdomain.cloud
+    http:
+      paths:
+      - path: /segmentation
+        backend:
+          serviceName: segment-api
+          servicePort: 9099

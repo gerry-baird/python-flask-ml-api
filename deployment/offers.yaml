@@ -1,0 +1,97 @@
+---
+swagger: "2.0"
+info:
+  description: API to invoke the execution of the decision service operation Customer_Offers.
+  version: 1.0.0
+  title: Customer_Offers API
+host: odmeudemo1.bpm.ibmcloud.com
+basePath: /odm/dev/DecisionService/rest
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- basicAuthentication: []
+paths:
+  /Customer_Offers_RuleApp/Customer_Offers:
+    post:
+      summary: Invokes the execution of the decision service operation Customer_Offers.
+      description: Executes the decision service operation Customer_Offers with the path /Customer_Offers_RuleApp/Customer_Offers.
+      operationId: callCustomer_OffersDecisionServiceOperation
+      parameters:
+      - in: body
+        name: Request
+        description: Request for the execution of the decision service operation. Contains notably the input parameters that are used for the execution.
+        required: true
+        schema:
+          $ref: '#/definitions/Request'
+      responses:
+        "200":
+          description: Response for the execution of the decision service operation. Contains notably the output parameters that are returned by the execution.
+          schema:
+            $ref: '#/definitions/Response'
+        default:
+          description: Error occurring when invoking the execution of the decision service operation.
+          schema:
+            $ref: '#/definitions/Error'
+securityDefinitions:
+  basicAuthentication:
+    description: HTTP Basic Authentication. Works over HTTP and HTTPS.
+    type: basic
+definitions:
+  Response:
+    type: object
+    properties:
+      __DecisionID__:
+        type: string
+        description: Unique identifier representing the execution of the decision service operation. If it is not specified, it will be computed automatically.
+      Offer_Ranking:
+        type: array
+        items:
+          $ref: '#/definitions/Offer'
+    description: Response for the execution of the decision service operation. Contains notably the output parameters that are returned by the execution.
+  Offer:
+    type: object
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+        format: double
+      rank:
+        type: integer
+        format: int32
+  Request:
+    type: object
+    properties:
+      __DecisionID__:
+        type: string
+        description: Unique identifier representing the execution of the decision service operation. If it is not specified, it will be computed automatically.
+      Satisfaction:
+        type: integer
+        format: int32
+      group:
+        type: string
+      prediction:
+        type: integer
+        format: int32
+    description: Request for the execution of the decision service operation. Contains notably the input parameters that are used for the execution.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: HTTP error code.
+      message:
+        type: string
+        description: Error message.
+      details:
+        type: string
+        description: Detailed error message.
+      errorCode:
+        type: string
+        description: Product error code.
+    description: Error occurring when invoking the execution of the decision service operation.

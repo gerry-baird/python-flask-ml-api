@@ -1,0 +1,47 @@
+swagger: '2.0'
+info:
+  description: Segmentation API
+  version: "2.1"
+  title: Segmentation API
+host: "169.50.92.131:9099"
+schemes:
+- "http"
+paths:
+  /segmentation:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      operationId: "segmentation"
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/CustomerHistory'
+      responses:
+        '200':
+          description: Customer segment returned
+          schema:
+            $ref: '#/definitions/Segment'
+        '404':
+          description: Something has gone wrong
+          schema:
+            type: string
+definitions:
+  CustomerHistory:
+    properties:
+      satisfaction:
+        type: integer
+        format: int32
+      spend:
+        type: integer
+        format: int32
+      visits:
+        type: integer
+        format: int32
+  Segment:
+    properties:
+      segment:
+        type: string
